@@ -4,8 +4,8 @@ import "../styles/PokemonList.css";
 const PokemonList = ({ pokemons }) => {
   return (
     <div className="PokemonList">
-      {pokemons.map((pokemons) => {
-        return <PokemonCard />;
+      {pokemons.map((pokemon) => {
+        return <PokemonCard name={pokemon.name} key={pokemon.name} />;
       })}
     </div>
   );
