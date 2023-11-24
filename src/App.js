@@ -19,8 +19,11 @@ function App() {
       dispatch(setLoading(true));
       const pokemonsRes = await getPokemon();
       dispatch(getPokemonsWithDetails(pokemonsRes));
-      dispatch(setLoading(false));
+      setTimeout(() => {
+        dispatch(setLoading(false));
+      }, 1000);
     };
+
     fetchPokemons();
   }, []);
   return (
