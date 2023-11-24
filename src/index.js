@@ -7,16 +7,16 @@ import {
   compose,
   legacy_createStore as createStore,
 } from "redux";
+import thunk from "redux-thunk";
 import { logger } from "./middlewares";
 import App from "./App";
 import "./index.css";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
-const composedEnhancers = compose(
-  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
-  applyMiddleware(logger)
-);
+const composeAll = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+
+const composedEnhancers = composeAll(applyMiddleware(thunk, logger));
 
 const store = createStore(pokemonsReducer, composedEnhancers);
 
