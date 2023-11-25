@@ -9,23 +9,14 @@ import { fetchPokemonsWithDetails } from "./slices/dataSlice";
 import "./App.css";
 
 function App() {
-  const pokemons = useSelector((state) => state.data.pokemons, shallowEqual);
+  // const pokemons = useSelector((state) => state.data.pokemons, shallowEqual);
+  const pokemons = useSelector(
+    (state) => state.data.pokemonsFiltered,
+    shallowEqual
+  );
   const loading = useSelector((state) => state.ui.loading);
-  // const loading = false;
+
   const dispatch = useDispatch();
-
-  // useEffect(() => {
-  //   const fetchPokemons = async () => {
-  //     dispatch(setLoading(true));
-  //     const pokemonsRes = await getPokemon();
-  //     dispatch(getPokemonsWithDetails(pokemonsRes));
-  //     setTimeout(() => {
-  //       dispatch(setLoading(false));
-  //     }, 1000);
-  //   };
-
-  //   fetchPokemons();
-  // }, []);
 
   useEffect(() => {
     dispatch(fetchPokemonsWithDetails());
