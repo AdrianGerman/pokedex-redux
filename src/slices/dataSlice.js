@@ -1,8 +1,23 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { getPokemon, getPokemonDetails } from "../api";
+import { setLoading } from "./uiSlice";
 
 const initialState = {
   pokemons: [],
 };
+
+export const fetchPokemonsWithDetails = createAsyncThunk(
+  "data/fetchPokemonsWithDetails",
+  async (_, { dispatch }) => {
+    dispatch(setLoading(true));
+    const pokemonsRes = await getPokemon();
+    const pokemonsDetailed = await Promise.all(
+      pokemonsRes.map((pokemon) => getPokemonDetails(pokemon))
+    );
+    dispatch(setPokemons(pokemonsDetailed));
+    dispatch(setLoading(false));
+  }
+);
 
 export const dataSlice = createSlice({
   name: "data",
@@ -12,7 +27,7 @@ export const dataSlice = createSlice({
       state.pokemons = action.payload;
     },
     setFavorite: (state, action) => {
-      const currentPokemonIndex = state.pokemons.indIndex((pokemon) => {
+      const currentPokemonIndex = state.pokemons.findIndex((pokemon) => {
         return pokemon.id === action.payload.pokemonId;
       });
       if (currentPokemonIndex >= 0) {
