@@ -27,7 +27,6 @@ export const pokemonsReducer = (state = initialState, action) => {
         ["pokemons", currentPokemonIndex, "favorite"],
         !isFavorite
       );
-
     default:
       return state;
   }
