@@ -1,7 +1,6 @@
 import { Card } from "antd";
 import { useDispatch } from "react-redux";
 import Meta from "antd/es/card/Meta";
-import "../styles/PokemonCard.css";
 import StartButton from "./StarButton";
 import { setFavorite } from "../slices/dataSlice";
 
@@ -15,11 +14,28 @@ const PokemonCard = ({ name, image, types, id, favorite }) => {
 
   return (
     <Card
-      title={name}
-      cover={<img src={image} alt={image} />}
+      bordered={false}
+      style={{
+        backgroundColor: "#313235",
+        borderColor: "purple",
+        borderStyle: "double",
+      }}
+      title={<span style={{ color: "white" }}>{name}</span>}
+      cover={
+        <img
+          src={image}
+          alt={image}
+          style={{
+            // backgroundColor: "#313246",
+            borderRadius: "none",
+          }}
+        />
+      }
       extra={<StartButton isFavorite={favorite} onClick={handleOnFavorite} />}
     >
-      <Meta description={typesString} />
+      <Meta
+        description={<span style={{ color: "white" }}>{typesString}</span>}
+      />
     </Card>
   );
 };
